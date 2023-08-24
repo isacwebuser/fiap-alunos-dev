@@ -1,6 +1,5 @@
 package com.isac.students.Students.student;
 
-import com.isac.students.Students.controller.Curso;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,5 +29,24 @@ public class Aluno {
         this.curso = cadastroAluno.curso();
         this.matricula = cadastroAluno.matricula();
 
+    }
+
+    public void atualizarDadosAluno(DadosAtualizarAluno dadosAtualizarAluno) {
+        if (dadosAtualizarAluno.nome() != null) {
+            this.nome = dadosAtualizarAluno.nome();
+        }
+        if (dadosAtualizarAluno.cpf() != null) {
+            this.cpf = dadosAtualizarAluno.cpf();
+        }
+        if (dadosAtualizarAluno.curso() != null) {
+            this.curso = dadosAtualizarAluno.curso();
+        }
+        if (dadosAtualizarAluno.matricula() != null) {
+            this.matricula = dadosAtualizarAluno.matricula();
+        }
+        if (dadosAtualizarAluno.telefone() != null) {
+            this.telefone = dadosAtualizarAluno.telefone();
+        }
+        
     }
 }

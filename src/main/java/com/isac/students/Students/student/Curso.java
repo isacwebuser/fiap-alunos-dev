@@ -1,4 +1,4 @@
-package com.isac.students.Students.controller;
+package com.isac.students.Students.student;
 
 public enum Curso {
     ENGENHARIA,
