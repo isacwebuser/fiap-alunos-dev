@@ -25,7 +25,7 @@ public class StudentsController {
 
     @GetMapping
     public Page<ListaDadosAluno> listarAlunos(Pageable pagination) {
-        return alunoRepository.findAll(pagination).map(ListaDadosAluno::new);
+        return alunoRepository.findAllByAtivoTrue(pagination).map(ListaDadosAluno::new);
     }
     @PutMapping
     @Transactional
@@ -36,8 +36,10 @@ public class StudentsController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        this.alunoRepository.deleteById(id);
+        var student = this.alunoRepository.getReferenceById(id);
+        student.deleteIdLogical();
         return new ResponseEntity<>("Aluno deletado com sucesso", HttpStatus.ACCEPTED);
 
     }

@@ -21,6 +21,7 @@ public class Aluno {
     @Enumerated(EnumType.STRING)
     private Curso curso;
     private String matricula;
+    private Boolean ativo;
 
     public Aluno(DadosCadastroAluno cadastroAluno) {
         this.nome = cadastroAluno.nome();
@@ -28,6 +29,7 @@ public class Aluno {
         this.cpf = cadastroAluno.cpf();
         this.curso = cadastroAluno.curso();
         this.matricula = cadastroAluno.matricula();
+        this.ativo = true;
 
     }
 
@@ -48,5 +50,9 @@ public class Aluno {
             this.telefone = dadosAtualizarAluno.telefone();
         }
         
+    }
+
+    public void deleteIdLogical() {
+        this.ativo = false;
     }
 }
