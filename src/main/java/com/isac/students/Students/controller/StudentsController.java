@@ -34,4 +34,11 @@ public class StudentsController {
         dadosAluno.atualizarDadosAluno(dadosAtualizarAluno);
         return new ResponseEntity<>("Atualizado com sucesso", HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        this.alunoRepository.deleteById(id);
+        return new ResponseEntity<>("Aluno deletado com sucesso", HttpStatus.ACCEPTED);
+
+    }
 }
