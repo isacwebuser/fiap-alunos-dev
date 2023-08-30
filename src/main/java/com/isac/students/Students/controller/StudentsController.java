@@ -19,8 +19,12 @@ public class StudentsController {
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody @Valid DadosCadastroAluno dadosCadastroAluno) {
-        this.alunoRepository.save(new Aluno(dadosCadastroAluno));
-        return new ResponseEntity<>("Cadastrado com sucesso", HttpStatus.CREATED);
+        try {
+            this.alunoRepository.save(new Aluno(dadosCadastroAluno));
+            return new ResponseEntity<>("Cadastrado com sucesso", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Revisar valores enviados nos campos Matrícula e/ou Curso", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping
@@ -30,9 +34,13 @@ public class StudentsController {
     @PutMapping
     @Transactional
     public ResponseEntity<String> atualizarAluno(@RequestBody @Valid DadosAtualizarAluno dadosAtualizarAluno) {
-        var dadosAluno = this.alunoRepository.getReferenceById(dadosAtualizarAluno.id());
-        dadosAluno.atualizarDadosAluno(dadosAtualizarAluno);
-        return new ResponseEntity<>("Atualizado com sucesso", HttpStatus.ACCEPTED);
+        try {
+            var dadosAluno = this.alunoRepository.getReferenceById(dadosAtualizarAluno.id());
+            dadosAluno.atualizarDadosAluno(dadosAtualizarAluno);
+            return new ResponseEntity<>("Atualizado com sucesso", HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -41,6 +49,5 @@ public class StudentsController {
         var student = this.alunoRepository.getReferenceById(id);
         student.deleteIdLogical();
         return new ResponseEntity<>("Aluno deletado com sucesso", HttpStatus.ACCEPTED);
-
     }
 }
